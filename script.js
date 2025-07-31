@@ -27,6 +27,7 @@ const Perguntas = [
  texto:"Hugo Hoyama",
  afirmação:"resposta correta",
  pontos:1
+},
 {
     texto:"Hugo",
     afirmação:"resposta errada",
@@ -50,33 +51,45 @@ const Perguntas = [
         ]
     },
        {
-        enunciado: "qual foi a maior pontuação e uma partida de ping pong?",
+        enunciado: "qual é o maior torneio do ping pong?",
         alternativas: [
 {
- texto:"11-0",
+ texto:"ITTF Table Tennis World Cup",
  afirmação:"resposta errada",
  pontos:0
 },
 {
-    texto:"21-0",
+    texto:"ITTF World Table Tennis Championships",
     afirmação:"resposta correta",
     pontos:1
 }
         ]
     },
        {
-        enunciado: "qual foi a maior pontuação e uma partida de ping pong?",
+        enunciado: "qual é a melhor raquete de ping pong profissional?",
         alternativas: [
 {
- texto:"11-0",
- afirmação:"resposta errada",
- pontos:0
+ texto:"Wilson Pro Staff 97 v14",
+ afirmação:"resposta corrata",
+ pontos:1
 },
 {
-    texto:"21-0",
-    afirmação:"resposta correta",
-    pontos:1
+    texto:"Wilson Blade 104 V8",
+    afirmação:"resposta erreda",
+    pontos:0
 }
         ]
     },
 ]
+
+let atual=0;
+let perguntaAtual;
+let historiaFinal="";
+let pontos=0;
+
+function mostraPerguntas(){
+    perguntaAtual=perguntas[atual];
+    caixaPerguntas.textContent=perguntaAtual.enunciado;
+    caixaAlternativas.textContent="";
+    mostraAlternaiva();
+}
