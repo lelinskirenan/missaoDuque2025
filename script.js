@@ -1,10 +1,10 @@
-const caixaPricipal = document.querySelector(".caixa-Principal");
-const caixaPerguntas = document.querySelector(".caixa-Perguntas");
-const caixaAlternativas = document.querySelector(".caixa-Alternativas");
-const caixaResultado = document.querySelector(".caixa-Resultado");
-const textoResultado = document.querySelector(".texto-Resultado");
+const caixaPrincipal = document.querySelector(".caixa-principal");
+const caixaPerguntas = document.querySelector(".caixa-perguntas");
+const caixaAlternativas = document.querySelector(".caixa-alternativas");
+const caixaResultado = document.querySelector(".caixa-resultado");
+const textoResultado = document.querySelector(".texto-resultado");
 
-const Perguntas = [
+const perguntas = [
     {
         enunciado: "qual foi a maior pontuação e uma partida de ping pong?",
         alternativas: [
@@ -87,9 +87,46 @@ let perguntaAtual;
 let historiaFinal="";
 let pontos=0;
 
-function mostraPerguntas(){
+function mostraPergunta(){
     perguntaAtual=perguntas[atual];
     caixaPerguntas.textContent=perguntaAtual.enunciado;
     caixaAlternativas.textContent="";
-    mostraAlternaiva();
+    mostraAlternativas();
 }
+
+function mostraAlternativas(){
+    for(const alternativa of perguntaAtual.alternativas){
+        const botaoAlternativas = document.createElement("button");
+        botaoAlternativas.textContent = alternativa.texto;
+        botaoAlternativas.addEventListener("click", () => respostaSelecionada(alternativa));
+        caixaAlternativas.appendChild(botaoAlternativas);
+    }
+}
+function respostaSelecionada(alternativa) { 
+    const afirmacao = alternativa.afirmacao; 
+    historiaFinal = afirmacao; 
+    pontos += alternativa.pontos;  
+    atual++; 
+
+    if (atual < perguntas.length) { 
+        mostraPergunta();  
+    } else {
+        exibeResultado();  
+    }
+}
+
+function exibeResultado() { 
+    caixaPerguntas.textContent = "Fim do Quiz!"; 
+    caixaAlternativas.textContent = "";  
+    textoResultado.textContent = `Sua pontuação final é: ${pontos} pontos.`;  
+
+    if (pontos === perguntas.length) {
+        textoResultado.textContent += " Parabéns! Você acertou todas as questões!"; 
+    } else if (pontos > perguntas.length / 2) {
+        textoResultado.textContent += " Bom trabalho, você teve um desempenho legal!"; 
+    } else {
+        textoResultado.textContent += " Você pode melhorar! Tente novamente!"; 
+    }
+}
+
+mostraPergunta();
